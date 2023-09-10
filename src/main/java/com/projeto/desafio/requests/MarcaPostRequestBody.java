@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class MarcaPostRequestBody {
-    String nome;
-    String codigoDenatran;
-    Boolean ativo;
+    private String nome;
+    private String codigoDenatran;
+    private Boolean ativo;
 }

@@ -27,9 +27,19 @@ public class MarcaController {
         return ResponseEntity.ok(marcaService.findById(id));
     }
 
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<Marca>> findByName(@RequestParam String nome) {
+        return ResponseEntity.ok(marcaService.findByName(nome));
+    }
     @PostMapping
     public ResponseEntity<Marca> save(@RequestBody MarcaPostRequestBody marcaPostRequestBody) {
         return new ResponseEntity<>(marcaService.save(marcaPostRequestBody), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/batch")
+    public ResponseEntity<List<Marca>> saveAll(@RequestBody List<MarcaPostRequestBody> marcaPostRequestBodyList) {
+        marcaService.saveAll(marcaPostRequestBodyList);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping

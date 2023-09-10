@@ -1,5 +1,6 @@
 package com.projeto.desafio.controller;
 
+import com.projeto.desafio.domain.Marca;
 import com.projeto.desafio.domain.Modelo;
 import com.projeto.desafio.requests.ModeloPostRequestBody;
 import com.projeto.desafio.requests.ModeloPutRequestBody;
@@ -26,10 +27,20 @@ public class ModeloController {
     public ResponseEntity<Modelo> findById(@PathVariable long id) {
         return ResponseEntity.ok(modeloService.findById(id));
     }
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<Modelo>> findByName(@RequestParam String nome) {
+        return ResponseEntity.ok(modeloService.findByName(nome));
+    }
 
     @PostMapping
     public ResponseEntity<Modelo> save(@RequestBody ModeloPostRequestBody modeloPostRequestBody) {
         return new ResponseEntity<>(modeloService.save(modeloPostRequestBody), HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "/batch")
+    public ResponseEntity<List<Modelo>> saveAll(@RequestBody List<ModeloPostRequestBody> modeloPostRequestBody) {
+        modeloService.saveAll(modeloPostRequestBody);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping

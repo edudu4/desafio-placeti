@@ -18,12 +18,12 @@ public class Marca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "marca_id")
-    Long id;
-    String codigoDenatran;
-    String nome;
-    Boolean ativo;
+    private Long id;
+    private String codigoDenatran;
+    private String nome;
+    private Boolean ativo;
 
     @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
     @JsonManagedReference
-    List<Modelo> modelos;
+    private List<Modelo> modelos;
 }

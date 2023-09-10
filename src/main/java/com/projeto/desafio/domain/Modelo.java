@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 public class Modelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String nome;
-    String ano;
-    Boolean ativo;
+    private Long id;
+    private String nome;
+    private String ano;
+    private Boolean ativo;
 
     @ManyToOne
     @JoinColumn(name = "marca_id")
     @JsonBackReference
-    Marca marca;
+    private Marca marca;
 }
