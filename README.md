@@ -38,9 +38,74 @@ docker-compose up
 
 Isso iniciará todos os serviços definidos no arquivo `docker-compose.yml`, incluindo a API e o banco de dados.
 
+***
 ## Documentação da API
-
+--
 ## Endpoint Marcas
+
+
+### Criar Marca
+
+**URL**: `/marcas`
+
+**Método**: `POST`
+
+**Corpo da Requisição**:
+
+```json
+{
+  "nome": "Honda",
+  "codigoDenatran": "1234567895432654321",
+  "ativo": true
+}
+```
+
+**Resposta de Sucesso**:
+
+- **Código**: 201
+
+- **Conteúdo**:
+```json
+{
+  "id": 1,
+  "codigoDenatran": "1234567895432654321",
+  "nome": "Honda",
+  "ativo": true,
+  "modelos": null
+}
+```
+### Criar Várias Marcas
+
+**URL**: `/marcas/batch`
+
+**Método**: `POST`
+
+**Corpo da Requisição**:
+
+```json
+[
+  {
+    "nome": "Honda",
+    "codigoDenatran": "1234567895432654321",
+    "ativo": true
+  },
+  {
+    "nome": "Honda",
+    "codigoDenatran": "1234567895432654321",
+    "ativo": true
+  },
+  {
+    "nome": "Honda",
+    "codigoDenatran": "1234567895432654321",
+    "ativo": true
+  }
+]
+```
+
+**Resposta de Sucesso**:
+
+- **Código**: 201
+
 ### Retorna Lista de Marcas
 
 **URL**: `/marcas`
@@ -112,68 +177,6 @@ Isso iniciará todos os serviços definidos no arquivo `docker-compose.yml`, inc
 
 ```
 
-### Criar Marca
-
-**URL**: `/marcas`
-
-**Método**: `POST`
-
-**Corpo da Requisição**:
-
-```json
-{
-  "nome": "Honda",
-  "codigoDenatran": "1234567895432654321",
-  "ativo": true
-}
-```
-
-**Resposta de Sucesso**:
-
-- **Código**: 201
-
-- **Conteúdo**:
-```json
-{
-  "id": 1,
-  "codigoDenatran": "1234567895432654321",
-  "nome": "Honda",
-  "ativo": true,
-  "modelos": null
-}
-```
-### Criar Várias Marcas
-
-**URL**: `/marcas/batch`
-
-**Método**: `POST`
-
-**Corpo da Requisição**:
-
-```json
-[
-  {
-    "nome": "Honda",
-    "codigoDenatran": "1234567895432654321",
-    "ativo": true
-  },
-  {
-    "nome": "Honda",
-    "codigoDenatran": "1234567895432654321",
-    "ativo": true
-  },
-  {
-    "nome": "Honda",
-    "codigoDenatran": "1234567895432654321",
-    "ativo": true
-  }
-]
-```
-
-**Resposta de Sucesso**:
-
-- **Código**: 201
-
 ### Atualizar Marca
 
 **URL**: `/marcas`
@@ -189,7 +192,6 @@ Isso iniciará todos os serviços definidos no arquivo `docker-compose.yml`, inc
   "nome": "HondaTeste",
   "ativo": false
 }
-
 
 ```
 **Resposta de Sucesso**:
@@ -208,63 +210,6 @@ Isso iniciará todos os serviços definidos no arquivo `docker-compose.yml`, inc
 
 ***
 ## Endpoint Modelos
-### Retorna Lista de Modelos
-
-**URL**: `/modelos`
-
-**Método**: `GET`
-
-**Resposta de Sucesso**:
-
-- **Código**: 200
-- **Conteúdo**:
-```json
-{
-  "id": 1,
-  "nome": "Civic",
-  "ano": "2023",
-  "ativo": true
-}
-```
-
-### Retorna Modelo pelo ID
-
-**URL**: `/modelos/{id}`
-
-**Método**: `GET`
-
-**Resposta de Sucesso**:
-
-- **Código**: 200
-- **Conteúdo**:
-```json
-{
-  "id": 8,
-  "nome": "Civicc",
-  "ano": "2023",
-  "ativo": true
-}
-```
-
-### Retorna Modelo pelo Nome
-
-**URL**: `/modelos/find?nome={nome}`
-
-**Método**: `GET`
-
-**Resposta de Sucesso**:
-
-- **Código**: 200
-- **Conteúdo**:
-```json
-{
-  "id": 1,
-  "nome": "Civic",
-  "ano": "2023",
-  "ativo": true
-}
-
-```
 
 ### Criar Modelo
 
@@ -324,6 +269,65 @@ Isso iniciará todos os serviços definidos no arquivo `docker-compose.yml`, inc
 **Resposta de Sucesso**:
 
 - **Código**: 201
+
+### Retorna Lista de Modelos
+
+**URL**: `/modelos`
+
+**Método**: `GET`
+
+**Resposta de Sucesso**:
+
+- **Código**: 200
+- **Conteúdo**:
+```json
+{
+  "id": 1,
+  "nome": "Civic",
+  "ano": "2023",
+  "ativo": true
+}
+```
+
+### Retorna Modelo pelo ID
+
+**URL**: `/modelos/{id}`
+
+**Método**: `GET`
+
+**Resposta de Sucesso**:
+
+- **Código**: 200
+- **Conteúdo**:
+```json
+{
+  "id": 8,
+  "nome": "Civicc",
+  "ano": "2023",
+  "ativo": true
+}
+```
+
+### Retorna Modelo pelo Nome
+
+**URL**: `/modelos/find?nome={nome}`
+
+**Método**: `GET`
+
+**Resposta de Sucesso**:
+
+- **Código**: 200
+- **Conteúdo**:
+```json
+{
+  "id": 1,
+  "nome": "Civic",
+  "ano": "2023",
+  "ativo": true
+}
+
+```
+
 
 ### Atualizar Modelo
 
@@ -390,3 +394,4 @@ Isso iniciará todos os serviços definidos no arquivo `docker-compose.yml`, inc
   }
 ]
 ```
+***
