@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   api:
-    image: desafio_placeti
+    image: edudu4/desafio_placeti:latest
     ports:
       - "8080:8080"
     environment:
@@ -18,7 +18,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./C:/Users/Eduardo/IdeaProjects/desafio:/docker-entrypoint-initdb.d
+      - ./desafio:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_DB=desafio
       - POSTGRES_USER=postgres
