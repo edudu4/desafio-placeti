@@ -1,5 +1,6 @@
 package com.projeto.desafio.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,8 @@ public class Marca {
     String codigoDenatran;
     String nome;
     Boolean ativo;
+
     @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL)
+    @JsonManagedReference
     List<Modelo> modelos;
 }
