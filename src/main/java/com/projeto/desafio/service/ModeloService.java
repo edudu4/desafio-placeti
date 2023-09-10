@@ -1,5 +1,6 @@
 package com.projeto.desafio.service;
 
+import com.projeto.desafio.domain.Marca;
 import com.projeto.desafio.domain.Modelo;
 import com.projeto.desafio.repository.ModeloRepository;
 import com.projeto.desafio.requests.ModeloPostRequestBody;
@@ -31,14 +32,17 @@ public class ModeloService {
     }
 
     public Modelo save(ModeloPostRequestBody modeloPostRequestBody) {
-
-        return modeloRepository.save(Modelo.builder()
-                .nome(modeloPostRequestBody.getNome())
-                .ativo(modeloPostRequestBody.getAtivo())
-                .ano(modeloPostRequestBody.getAno())
-                .marca(modeloPostRequestBody.getMarca())
-                .build());
-
+        Marca marcaAssociadaAoModelo = marcaAssociadaAoModelo(modeloPostRequestBody.getMarcaId());
+        if (marcaAssociadaAoModelo.getId() != null) {
+            return modeloRepository.save(Modelo.builder()
+                    .nome(modeloPostRequestBody.getNome())
+                    .ativo(modeloPostRequestBody.getAtivo())
+                    .ano(modeloPostRequestBody.getAno())
+                    .marca(marcaAssociadaAoModelo)
+                    .build());
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Marca associada ao modelo não encontrada");
+        }
     }
 
     public void saveAll(List<ModeloPostRequestBody> modeloPostRequestBodyList) {
@@ -47,11 +51,20 @@ public class ModeloService {
     }
 
     public void replace(ModeloPutRequestBody modeloPutRequestBody) {
+        Modelo modeloSalvo = findById(modeloPutRequestBody.getId());
+        Marca marcaAssociadaAoModelo = marcaAssociadaAoModelo(modeloSalvo.getMarca().getId());
+
+        if (modeloSalvo.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Modelo não encontrado");
+        }
+        if (marcaAssociadaAoModelo.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Marca associada ao modelo não encontrada");
+        }
 
         Modelo modelo = Modelo.builder()
-                .id(modeloPutRequestBody.getModeloExistente().getId())
+                .id(modeloSalvo.getId())
                 .nome(modeloPutRequestBody.getNome())
-                .marca(modeloPutRequestBody.getMarca())
+                .marca(marcaAssociadaAoModelo)
                 .ano(modeloPutRequestBody.getAno())
                 .ativo(modeloPutRequestBody.getAtivo())
                 .build();
@@ -60,7 +73,15 @@ public class ModeloService {
 
     }
 
+
     public void delete(long id) {
         modeloRepository.delete(findById(id));
     }
+
+    private Marca marcaAssociadaAoModelo(long id) {
+        return marcaService.findById(id);
+    }
 }
+
+
+

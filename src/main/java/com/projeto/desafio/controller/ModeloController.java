@@ -1,6 +1,5 @@
 package com.projeto.desafio.controller;
 
-import com.projeto.desafio.domain.Marca;
 import com.projeto.desafio.domain.Modelo;
 import com.projeto.desafio.requests.ModeloPostRequestBody;
 import com.projeto.desafio.requests.ModeloPutRequestBody;

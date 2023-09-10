@@ -24,7 +24,6 @@ public class MarcaService {
         return marcaRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Marca não encontrada"));
     }
-
     public List<Marca> findByName(String nome) {
         return marcaRepository.findByNome(nome);
     }
@@ -36,19 +35,20 @@ public class MarcaService {
                 .ativo(marcaPostRequestBody.getAtivo())
                 .build());
     }
-
     public void saveAll(List<MarcaPostRequestBody> marcaPostRequestBodyList) {
         marcaPostRequestBodyList
                 .forEach(this::save);
     }
 
     public void replace(MarcaPutRequestBody marcaPutRequestBody) {
+        Marca marcaSalva = findById(marcaPutRequestBody.getId());
         Marca marca = Marca.builder()
-                .id(marcaPutRequestBody.getMarcaExistente().getId())
+                .id(marcaSalva.getId())
                 .codigoDenatran(marcaPutRequestBody.getCodigoDenatran())
                 .nome(marcaPutRequestBody.getNome())
                 .ativo(marcaPutRequestBody.getAtivo())
                 .build();
+
         marcaRepository.save(marca);
     }
 
