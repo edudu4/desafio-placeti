@@ -35,8 +35,6 @@ public class MarcaService {
 
     public void replace(MarcaPutRequestBody marcaPutRequestBody) {
         Marca marcaSalva = findById(marcaPutRequestBody.getId());
-        System.out.println(marcaSalva.getId());
-        System.out.println(marcaSalva.getNome());
         Marca marca = Marca.builder()
                 .id(marcaSalva.getId())
                 .codigoDenatran(marcaPutRequestBody.getCodigoDenatran())
